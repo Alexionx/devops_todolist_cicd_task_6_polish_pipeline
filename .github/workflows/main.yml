@@ -19,7 +19,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  PythonVersion: ${{ matrix.python-version }}
+  PythonVersion: 3.8
   DockerImageName: todoapp
 
 jobs:
