@@ -28,7 +28,8 @@ jobs:
       matrix:
         os: [ubuntu-22.04, windows-latest]
         python-version: [3.8, 3.9]
-
+      fail-fast: false
+      
     name: Python CI ${{ matrix.os }} - ${{ matrix.python-version }}
     runs-on: ${{ matrix.os }}
     defaults:
@@ -72,11 +73,25 @@ jobs:
           name:  artifact-${{ matrix.os }}-${{ matrix.python-version }}
           path: .
 
+      - name: Upload python artifacts (main name)
+        if: matrix.os == 'ubuntu-22.04' && matrix.python-version == '3.8'
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-artifacts
+          path: .
+
       - name: Upload helm artifacts
         if: github.ref_name == 'main'
         uses: actions/upload-artifact@v4
         with:
           name: helm-artifacts-${{ matrix.os }}-${{ matrix.python-version }}
+          path: ${{ github.workspace }}/helm-charts
+
+      - name: Upload helm artifacts (main name)
+        if: github.ref_name == 'main' && matrix.os == 'ubuntu-22.04' && matrix.python-version == '3.8'
+        uses: actions/upload-artifact@v4
+        with:
+          name: helm-artifacts
           path: ${{ github.workspace }}/helm-charts
 
       - name: Upload kind cluster artifact
@@ -150,7 +165,7 @@ jobs:
     with:
       environment: development
       version: ${{ github.sha }}
-      artifact: ${{ inputs.artifact_to_deploy }}
+      artifact: ${{ inputs.artifact_to_deploy || 'ubuntu-22.04-3.8' }}
 
   deploy-helm-stg:
     name: Deploy helm to Staging
