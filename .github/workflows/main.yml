@@ -19,7 +19,6 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  PythonVersion: 3.8
   DockerImageName: todoapp
 
 jobs:
