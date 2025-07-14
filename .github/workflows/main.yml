@@ -15,8 +15,8 @@ on:
         type: string
 
 concurrency:
-  group: pr-${{ github.head_ref || github.ref }}
-  cancel-in-progress: true
+  group: ${{ github.head_ref || github.ref }}
+  cancel-in-progress: false
 
 env:
   PythonVersion: 3.8
