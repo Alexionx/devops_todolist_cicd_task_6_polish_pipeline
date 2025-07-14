@@ -29,7 +29,7 @@ jobs:
         os: [ubuntu-latest, windows-latest]
         python-version: [3.8, 3.9]
 
-    name: Python CI (${{ matrix.os }} - ${{ matrix.python-version }})
+    name: Python CI ${{ matrix.os }} - ${{ matrix.python-version }}
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -76,7 +76,7 @@ jobs:
         if: github.ref_name == 'main'
         uses: actions/upload-artifact@v4
         with:
-          name: helm-artifacts
+          name: helm-artifacts-${{ matrix.os }}-${{ matrix.python-version }}
           path: ${{ github.workspace }}/helm-charts
 
       - name: Upload kind cluster artifact
