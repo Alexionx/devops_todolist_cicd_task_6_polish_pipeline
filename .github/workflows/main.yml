@@ -24,12 +24,12 @@ env:
 
 jobs:
   python-ci:
+    name: Python CI (${{ matrix.os }} - ${{ matrix.python-version }})
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
         python-version: [3.8, 3.9]
-    runs-on: ${{ matrix.os }}
-    name: Python CI (Python ${{ matrix.python-version }} / ${{ matrix.os }})
 
     defaults:
       run:
