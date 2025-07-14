@@ -26,7 +26,7 @@ jobs:
   python-ci:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-22.04, windows-latest]
         python-version: [3.8, 3.9]
 
     name: Python CI ${{ matrix.os }} - ${{ matrix.python-version }}
