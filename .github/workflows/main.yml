@@ -79,25 +79,16 @@ jobs:
         with:
           name: python-artifacts
           path: .
-          overwrite: true
 
       - name: Upload helm artifacts
-        if: github.ref_name == 'main'
-        uses: actions/upload-artifact@v4
-        with:
-          name: helm-artifacts-${{ matrix.os }}-${{ matrix.python-version }}
-          path: ${{ github.workspace }}/helm-charts
-
-      - name: Upload helm artifacts (main name)
         if: github.ref_name == 'main' && matrix.os == 'ubuntu-22.04' && matrix.python-version == '3.8'
         uses: actions/upload-artifact@v4
         with:
           name: helm-artifacts
           path: ${{ github.workspace }}/helm-charts
-          overwrite: true
 
       - name: Upload kind cluster artifact
-        if: github.ref_name == 'main'
+        if: github.ref_name == 'main' && matrix.os == 'ubuntu-22.04' && matrix.python-version == '3.8'
         uses: actions/upload-artifact@v4
         with:
           name: kind-cluster
